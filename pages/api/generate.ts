@@ -1,6 +1,4 @@
-import * as dotenv from "dotenv";
 import type { NextApiRequest, NextApiResponse } from "next";
-import path from "path";
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
