@@ -3,9 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import { Configuration, OpenAIApi } from "openai";
 
-const envPath = path.join(process.cwd(), ".env");
-dotenv.config({ path: envPath });
-
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
