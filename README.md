@@ -50,10 +50,11 @@ yarn dev
 
 The Pet Name Generator App is built using the following technologies:
 
-React: A JavaScript library for building user interfaces.
-Next.js: A framework for building server-side rendered React applications.
-TypeScript: A statically typed superset of JavaScript.
-Tailwind CSS: A utility-first CSS framework for rapid UI development.
+- React: A JavaScript library for building user interfaces.
+- Next.js: A framework for building server-side rendered React applications.
+- TypeScript: A statically typed superset of JavaScript.
+- Tailwind CSS: A utility-first CSS framework for rapid UI development.
+
 Feel free to explore the source code to learn more about the implementation details.
 
 
