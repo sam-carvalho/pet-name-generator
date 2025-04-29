@@ -1,17 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Configuration, OpenAIApi } from "openai";
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
+import OpenAI from "openai";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!configuration.apiKey) {
+  if (!process.env.OPENAI_API_KEY) {
     res.status(500).json({
       error: {
         message: "OpenAI API key not configured",
@@ -31,14 +25,24 @@ export default async function handler(
     return;
   }
 
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
   try {
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `suggest three pet names for the following ${pet}`,
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "user",
+          content: `Suggest three pet names for the following ${pet}`,
+        },
+      ],
       temperature: 0.8,
       max_tokens: 100,
     });
-    res.status(200).json({ result: response.data.choices[0].text });
+
+    res.status(200).json({ result: response.choices[0].message.content });
   } catch (error) {
     res.status(500).json({
       error: {

@@ -1,24 +1,25 @@
-const handleFetch = async (pet: string) => {
+type FetchResult = {
+  data?: string;
+  error?: string;
+};
+
+const handleFetch = async (pet: string): Promise<FetchResult> => {
   try {
     const response = await fetch("/api/generate", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ pet }),
     });
 
-    const data = await response.json();
-    if (response.status !== 200) {
-      throw (
-        data.error || new Error(`Request failed with status ${response.status}`)
-      );
+    const json = await response.json();
+
+    if (!response.ok) {
+      return { error: "Oh, no! Something went wrong! :(" };
     }
 
-    return data.result;
-  } catch (error) {
-    console.log(error);
-    return "";
+    return { data: json.result };
+  } catch (err: any) {
+    return { error: "Oh, no! Something went wrong! :(" };
   }
 };
 
